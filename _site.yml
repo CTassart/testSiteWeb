@@ -9,5 +9,5 @@ navbar:
       href: about.html
     - text: "coucou les ami(e)s"
       href: coucou.html
-    - text: "V'la du code"
+    - text: "Du code"
       href: code.html

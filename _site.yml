@@ -7,5 +7,7 @@ navbar:
       href: index.html
     - text: "About"
       href: about.html
-    - text: "coucou"
+    - text: "coucou les ami(e)s"
       href: coucou.html
+    - text: "V'la du code"
+      href: code.html

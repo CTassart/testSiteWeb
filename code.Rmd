@@ -12,16 +12,53 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-```{r cars}
-summary(cars)
+### Un 1er exemple
+```{r carsExemple1, echo=TRUE, message=FALSE, warning=FALSE}
+library(knitr)
+library(kableExtra)
+library(formattable)
+library(dplyr, quietly = TRUE)
+
+mtcars[1:5, 1:4] %>%
+  mutate(
+    car = row.names(.),
+    mpg = color_tile("white", "orange")(mpg),
+    cyl = cell_spec(cyl, "html",
+      angle = (1:5) * 60,
+      background = "red", color = "white", align = "center"
+    ),
+    disp = ifelse(disp > 200,
+      cell_spec(disp, "html", color = "red", bold = T),
+      cell_spec(disp, "html", color = "green", italic = T)
+    ),
+    hp = color_bar("lightgreen")(hp)
+  ) %>%
+  relocate(car) %>%
+  kable("html", escape = F) %>%
+  kable_styling("hover", full_width = F) %>%
+  column_spec(5, width = "3cm") %>%
+  add_header_above(c(" ", "Hello" = 2, "World" = 2))
 ```
 
-## Including Plots
+### Un 2ème exemple
 
-You can also embed plots, for example:
+```{r carsExemple2}
+library(kableExtra)
+dt <- mtcars[1:5, 1:4]
+
+kable(dt, format = "html", caption = "Demo Table") %>%
+  kable_styling(
+    bootstrap_options = "striped",
+    full_width = F
+  ) %>%
+  add_header_above(c(" ", "Group 1" = 2, "Group 2[note]" = 2)) %>%
+  add_footnote(c("table footnote"))
+```
+
+
+### Un 3ème exemple
 
 ```{r pressure, echo=FALSE}
 plot(pressure)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
